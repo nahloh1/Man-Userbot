@@ -28,7 +28,7 @@ async def fastpurger(purg):
     itermsg = purg.client.iter_messages(chat, min_id=purg.reply_to_msg_id)
     count = 0
     if purg.reply_to_msg_id is None:
-        return await edit_delete(purg, "**Mohon Balas Ke Pesan**")
+        return await edit_delete(purg, "**Reply to Chat**")
     async for msg in itermsg:
         msgs.append(msg)
         count += 1
@@ -40,7 +40,7 @@ async def fastpurger(purg):
         await purg.client.delete_messages(chat, msgs)
     done = await purg.client.send_message(
         purg.chat_id,
-        "**Fast Purge Completed!**\n**Berhasil Menghapus** `"
+        "**Fast Purge Completed!**\n**Done Cuk..** `"
         + str(count)
         + "` **Pesan**",
     )
@@ -61,7 +61,7 @@ async def purgeme(delme):
         await message.delete()
     smsg = await delme.client.send_message(
         delme.chat_id,
-        "**Berhasil Menghapus** " + str(count) + " **Kenangan**",
+        "**Done Clear** " + str(count) + " **Jancuk..**",
     )
     await sleep(2)
     i = 1
@@ -77,7 +77,7 @@ async def delete_it(delme):
             await msg_src.delete()
             await delme.delete()
         except rpcbaseerrors.BadRequestError:
-            await delme.edit("**Tidak Bisa Menghapus Pesan**")
+            await delme.edit("**Can't Clear History**")
 
 
 @man_cmd(pattern="edit")
@@ -119,7 +119,7 @@ async def purgfromto(prgnew):
         elif prgnew.pattern_match.group(2) == "to":
             await purgto(prgnew)
     else:
-        await edit_delete(prgnew, "**Mohon Balas Ke Pesan untuk mulai menghapus**")
+        await edit_delete(prgnew, "**Please Reply Chat**")
 
 
 async def purgfrm(purgdari):
@@ -139,7 +139,7 @@ async def purgto(purgke):
     except KeyError:
         manubot = await edit_delete(
             purgke,
-            "**Balas pesan dengan** `.purgefrom` **terlebih dahulu lalu gunakan** `.purgeto`",
+            "**Reply Chat With** `.purgefrom` **And Than** `.purgeto`",
             5,
         )
         return
@@ -161,7 +161,7 @@ async def purgto(purgke):
             await purgke.delete()
         man = await edit_delete(
             purgke,
-            f"**Fast purge complete!**\n**Berhasil Menghapus** `{message}` **Pesan**",
+            f"**Fast purge complete!**\n**Done Clear** `{message}` **Chat**",
             5,
         )
     except Exception as er:
